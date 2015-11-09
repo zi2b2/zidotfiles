@@ -1,0 +1,93 @@
+# i3blocks config file
+#
+# Please see man i3blocks for a complete reference!
+# The man page is also hosted at http://vivien.github.io/i3blocks
+#
+# List of valid properties:
+#
+# align
+# color
+# command
+# full_text
+# instance
+# interval
+# label
+# min_width
+# name
+# separator
+# separator_block_width
+# short_text
+# signal
+# urgent
+
+# Global properties
+#
+# The top properties below are applied to every block, but can be overridden.
+# Each block command defaults to the script name to avoid boilerplate.
+command=/usr/lib/i3blocks/$BLOCK_NAME
+separator_block_width=15
+markup=none
+
+# Music Player Daemon
+[mpd]
+label=
+command=~/.config/i3blocks/scripts/mpd
+interval=1
+
+# Volume indicator
+[volume]
+label=
+instance=Master
+interval=1
+signal=10
+
+# Home Disk Space
+[disk]
+label=
+#instance=/mnt/data
+interval=30
+
+# Wi-Fi
+#[wifi]
+#label=
+#instance=
+#command=~/.config/i3blocks/scripts/wifi
+#interval=10
+#separator=true
+
+# Battery Indicator
+[battery]
+label=
+#instance=1
+interval=30
+
+# Date
+[date]
+command=date +%a\ %b\ %d\ %H:%M
+interval=5
+
+# Youtube
+[youtube]
+full_text=
+command=~/.config/i3blocks/scripts/youtube.py
+
+# Proton
+[proton]
+full_text=
+command=~/.config/i3blocks/scripts/proton.py
+
+# Thunderbird
+#[thunderbird]
+#full_text=
+#command=~/.config/i3blocks/scripts/birdlaunch
+
+# Firefox
+[firefox]
+full_text=
+command=~/.config/i3blocks/scripts/foxlaunch.py
+
+# Office
+#[office]
+#full_text=
+#command=~/.config/i3blocks/scripts/office
+

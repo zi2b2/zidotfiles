@@ -1,0 +1,271 @@
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+set $mod Mod4
+
+set $black       #212121
+set $darkblack   #000000
+set $red         #C62828
+set $darkred     #B71C1C
+set $green       #2E7D32
+set $darkgreen   #1B5E20
+set $yellow      #F9A825
+set $darkyellow  #F57F17
+set $blue        #1E88E5
+set $darkblue    #1976D2
+set $magenta     #6A1B9A
+set $darkmagenta #4A148C
+set $cyan        #00ACC1
+set $darkcyan    #0097A7
+set $white       #FFFFFF
+set $darkwhite   #FAFAFA
+set $background  #000000
+set $transparent #000000BB
+
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4:"
+set $ws8 "8:"
+set $ws9 "9:"
+set $ws10 "10:"
+# Fonts
+font pango:DejaVu Sans Mono 10
+
+# Gaps
+set $default_gaps_inner 15
+set $default_gaps_outer 30
+gaps inner $default_gaps_inner
+gaps outer $default_gaps_outer
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+floating_minimum_size -1 x -1
+floating_maximum_size -1 x -1
+
+#                       BORDER      BACKGROUND  TEXT   INDICATOR
+client.focused          $darkyellow $darkyellow $black $darkyellow
+client.unfocused        $black      $black      $white $black
+client.focused_inactive $black      $black      $white $black
+client.urgent           $red        $red        $white $red
+
+# start a terminal
+bindsym $mod+Return exec urxvt
+
+# kill focused window
+bindsym $mod+q kill
+
+# start dmenu (a program launcher)
+#bindsym $mod+d exec --no-startup-id dmenu_run
+
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left 35px
+bindsym $mod+Shift+k move down 35px
+bindsym $mod+Shift+l move up 35px
+bindsym $mod+Shift+semicolon move right 35px
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+# Reload
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+assign [class="(?i)firefox"]			$ws3
+assign [class="(?i)thunderbird"]		$ws9
+assign [class="(?i)libreoffice"]		$ws4
+assign [class="(?i)Transmission"]		$ws8
+assign [class="(?i)hexchat"]			$ws10
+
+# I3bar
+bar {
+        status_command i3blocks
+	position 		top
+	workspace_buttons	yes
+        font pango:DejaVu Sans Mono, Icons 10
+	strip_workspace_numbers yes
+	separator_symbol "/"
+	colors {
+	    statusline	$cyan
+	    background	$darkblack
+	    separator	$cyan
+
+#                          BORDER       BACKGROUND   TEXT
+        focused_workspace  $transparent $transparent $cyan
+        inactive_workspace $transparent $transparent $white
+        active_workspace   $transparent $transparent $white
+        urgent_workspace   $cyan  $cyan  $transparent
+	}
+}
+
+# Floating apps
+for_window [instance="feh"] floating enable;
+for_window [instance="lxappearance"] floating enable;
+for_window [class="mpv"] floating enable;
+new_window pixel
+
+# Window Borders
+new_window 1pixel
+hide_edge_borders both
+for_window [class="^.*"] border pixel 0
+
+# Gaps
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+# SYSTEM
+set $Locker i3lock && sleep 1
+
+set $mode_system System (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+y mode "$mode_system"
+
+#CUSTOM BINDS
+bindsym --release $mod+p exec --no-startup-id ~/bin/screenlock
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 3%-	
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 
+
+# AUTOSTART
+exec --no-startup-id mpd &
+exec --no-startup-id keepassx &
+exec --no-startup-id mpdscribble &
+# exec --no-startup-id deluge
+# exec --no-startup-id thunderbird &
+exec --no-startup-id sh ~/.fehbg &
+exec --no-startup-id nm-applet &
+exec --no-startup-id compton --config ~/.config/compton.conf -b
+
+# vim:filetype=i3
